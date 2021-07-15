@@ -1,0 +1,58 @@
+---
+linux_dependencies:
+  - git
+  - zsh
+  - python2
+  - pip
+  - cmake
+  - silversearcher-ag
+  - tmux
+
+mac_dependencies:
+  - git
+  - zsh
+  - the_silver_searcher
+  - cmake
+  - tmux
+
+packages:
+  - repo: https://github.com/vim-airline/vim-airline
+    dest: ~/.vim/pack/dist/start/vim-airline
+
+  - repo: https://github.com/fatih/vim-go.git
+    dest: ~/.vim/pack/plugins/start/vim-go
+
+  - repo: https://github.com/preservim/nerdtree.git
+    dest: ~/.vim/pack/vendor/start/nerdtree
+    vim_helptags: vim -u NONE -c "helptags ~/.vim/pack/vendor/start/nerdtree/doc" -c q
+
+  - repo: https://tpope.io/vim/fugitive.git
+    dest: ~/.vim/pack/tpope/start/fugitive
+    vim_helptags: vim -u NONE -c "helptags fugitive/doc" -c q
+
+  - repo: https://github.com/vim-airline/vim-airline-themes
+    dest: ~/.vim/pack/dist/start/vim-airline-themes
+
+  - repo: https://tpope.io/vim/surround.git
+    dest: ~/.vim/pack/tpope/start/surround
+    vim_helptags: vim -u NONE -c "helptags surround/doc" -c q
+
+  - repo: https://github.com/davidhalter/jedi-vim.git
+    dest: ~/.vim/bundle/jedi-vim
+    vim_helptags: vim -u NONE -c "helptags jedi-vim/doc" -c q
+
+  - repo: https://github.com/hashivim/vim-terraform.git
+    dest: ~/.vim/pack/plugins/start/vim-terraform
+    vim_helptags: vim -u NONE -c "helptags vim-terraform" -c q
+
+  - repo: https://github.com/junegunn/fzf.git
+    dest: ~/.fzf
+
+  - repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
+  - repo: https://github.com/zsh-users/zsh-syntax-highlighting.git 
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
+  - repo: https://github.com/superbrothers/zsh-kubectl-prompt.git 
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-kubectl-prompt

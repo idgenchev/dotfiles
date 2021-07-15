@@ -1,0 +1,96 @@
+---
+- hosts: localhost:vagrant
+  connection: local
+  vars_files: 
+    - variables.yaml
+
+  tasks:
+    - name: Install dependencies
+      become: "{{ ansible_distribution != 'MacOSX' }}"
+      package:
+        name: "{{ mac_dependencies if ansible_distribution == 'MacOSX' else linux_dependencies }}"
+        state: present
+
+    - name: Install ropevim python package
+      pip:
+        name: ropevim
+        extra_args: --user
+
+    - name: Clone oh-my-zsh
+      command: 'git clone -c core.autocrlf=input --depth=1 https://github.com/robbyrussell/oh-my-zsh.git .oh-my-zsh'
+      args:
+        chdir: '$HOME'
+        creates: '$HOME/.oh-my-zsh'
+
+    - name: Set oh-my-zsh perms
+      file:
+        path: '$HOME/.oh-my-zsh'
+        mode: 'go-w'
+        recurse: yes
+
+    - name: Set zsh as default shell
+      become: "{{ ansible_distribution != 'MacOSX' }}"
+      user:
+        name: "{{ lookup('env', 'USER') }}"
+        shell: /bin/zsh
+
+    - name: Install vim and zsh packages
+      git:
+        repo: "{{ item.repo }}"
+        dest: "{{ item.dest }}"
+        clone: yes
+        update: yes
+        force: yes
+        version: '{{ item.version | default("master") }}'
+        recursive: '{{ item.recursive | default("no") }}'
+        track_submodules: '{{ item.track_submodules | default("no") }}'
+      loop: "{{ packages }}"
+
+    - name: Write .zshrc
+      vars:
+        theme: agnoster
+        plugins:
+          - git
+          - git-flow
+          - fzf
+          - brew
+          - history
+          - kubectl
+          - history-substring-search
+          - zsh-autosuggestions
+          - zsh-syntax-highlighting
+          - zsh-kubectl-prompt
+      template:
+        src: zshrc.j2
+        dest: '~/.zshrc'
+        mode: 'u=rw,go=r'
+        backup: yes
+
+    - name: helptags
+      shell: 
+        cmd: "{{ item.vim_helptags }}"
+      when: '"vim_helptags" in item'
+      loop: "{{ packages }}"
+
+    - name: install FZF
+      shell:
+        cmd: ~/.fzf/install
+
+    - name: write .vimrc
+      template:
+        src: vimrc.j2
+        dest: '~/.vimrc'
+        mode: 'u=rw,go=r'
+        backup: yes
+
+    - name: Ensures ~/.vim/autoload exists 
+      file: path=~/.vim/autoload state=directory
+
+    - name: Install vim-plug
+      get_url:
+        url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        dest: ~/.vim/autoload/
+
+    - name: Install plugins
+      shell: vim +PlugInstall +qall
+
