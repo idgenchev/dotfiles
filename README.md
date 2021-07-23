@@ -1,5 +1,5 @@
 # Dotfiles
-My environment configuration (only Vim and ZSH for now:)
+My environment configuration
 
 # Install
 
