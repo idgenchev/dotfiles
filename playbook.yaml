@@ -48,7 +48,7 @@
 
     - name: Write .zshrc
       vars:
-        theme: agnoster
+        theme: agnoster_latest
         plugins:
           - git
           - git-flow
@@ -65,6 +65,13 @@
         dest: '~/.zshrc'
         mode: 'u=rw,go=r'
         backup: yes
+
+    # The agnoster theme that comes with oh-my-zsh is a bit outdated
+    # and the AGNOSTER_PROMPT_SEGMENTS does not work there
+    - name: Install latest zsh agnoster theme
+      get_url:
+        url: https://raw.githubusercontent.com/agnoster/agnoster-zsh-theme/master/agnoster.zsh-theme
+        dest: ~/.oh-my-zsh/themes/agnoster_latest.zsh-theme
 
     - name: helptags
       shell: 
