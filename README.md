@@ -16,3 +16,8 @@ Prerequisites - [Ansible](https://www.ansible.com/)
 ```
 ansible-playbook playbook.yaml
 ```
+
+# Preview
+
+![preview](https://github.com/idgenchev/dotfiles/env-screenshot.png "Preview")
+
