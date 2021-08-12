@@ -19,5 +19,5 @@ ansible-playbook playbook.yaml
 
 # Preview
 
-![preview](https://github.com/idgenchev/dotfiles/env-screenshot.png "Preview")
+![preview](https://github.com/idgenchev/dotfiles/raw/main/env-screenshot.png "Preview")
 
