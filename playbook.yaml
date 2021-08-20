@@ -101,12 +101,30 @@
     - name: Install plugins
       shell: vim +PlugInstall +qall
 
+    - name: Ensures .tmux.d exists
+      file: path=~/.tmux.d state=directory
+
+    - name: Install tmux powerline
+      git:
+        repo: https://github.com/erikw/tmux-powerline.git
+        dest: '~/.tmux.d/tmux-powerline'
+        clone: yes
+        update: yes
+        force: yes
+
     - name: Write .tmux.conf
       vars:
         history_limit: 30000
       template:
         src: tmux.j2
         dest: '~/.tmux.conf'
+        mode: 'u=rw,go=r'
+        backup: yes
+
+    - name: Write tmux powerline theme
+      template:
+        src: tmux_powerline_theme.j2
+        dest: '~/.tmux.d/tmux-powerline/themes/mytheme.sh'
         mode: 'u=rw,go=r'
         backup: yes
 
