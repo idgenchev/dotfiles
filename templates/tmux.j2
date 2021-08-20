@@ -1,0 +1,9 @@
+# remap prefix from 'C-b' to 'C-q'
+unbind C-b
+set-option -g prefix C-q
+bind-key C-q send-prefix
+
+set-option -g history-limit {{ history_limit }}
+
+set -g mouse
+

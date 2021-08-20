@@ -101,3 +101,12 @@
     - name: Install plugins
       shell: vim +PlugInstall +qall
 
+    - name: Write .tmux.conf
+      vars:
+        history_limit: 30000
+      template:
+        src: tmux.j2
+        dest: '~/.tmux.conf'
+        mode: 'u=rw,go=r'
+        backup: yes
+
