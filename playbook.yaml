@@ -104,6 +104,9 @@
     - name: Ensures .tmux.d exists
       file: path=~/.tmux.d state=directory
 
+    - name: Ensures .tmux.d/themes exists
+      file: path=~/.tmux.d/themes state=directory
+
     - name: Install tmux powerline
       git:
         repo: https://github.com/erikw/tmux-powerline.git
@@ -124,7 +127,14 @@
     - name: Write tmux powerline theme
       template:
         src: tmux_powerline_theme.j2
-        dest: '~/.tmux.d/tmux-powerline/themes/mytheme.sh'
+        dest: '~/.tmux.d/themes/powerlinetheme.sh'
+        mode: 'u=rw,go=r'
+        backup: yes
+
+    - name: Write tmux powerlinerc
+      template:
+        src: tmux_powerlinerc.j2
+        dest: '~/.tmux-powerlinerc'
         mode: 'u=rw,go=r'
         backup: yes
 
