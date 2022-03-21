@@ -240,3 +240,31 @@ set tabstop=4
 
 set mouse=a
 
+" emacs keybindings for command and insert modes
+" start of line
+cnoremap <C-A>  <Home>
+inoremap <C-A>  <Home>
+" back one character
+cnoremap <C-B>  <Left>
+inoremap <C-B>  <Left>
+" delete character under cursor
+cnoremap <C-D>  <Del>
+inoremap <C-D>  <Del>
+" end of line
+cnoremap <C-E>  <End>
+inoremap <C-E>  <End>
+" forward one character
+cnoremap <C-F>  <Right>
+inoremap <C-F>  <Right>
+" recall newer command-line
+cnoremap <C-N>  <Down>
+inoremap <C-N>  <Down>
+" recall previous (older) command-line
+cnoremap <C-P>  <Up>
+inoremap <C-P>  <Up>
+" back one word
+cnoremap <Esc><C-B> <S-Left>
+inoremap <Esc><C-B> <S-Left>
+" forward one word
+cnoremap <Esc><C-F> <S-Right>
+inoremap <Esc><C-F> <S-Right>
